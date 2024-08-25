@@ -1,0 +1,397 @@
+{
+  "require firebase-functions": {
+    "prefix": "rfns",
+    "body": "const functions = require('firebase-functions')$0"
+  },
+  "require firebase-functions/v2": {
+    "prefix": "rfnsv2",
+    "body": "const functions = require('firebase-functions/v2')$0"
+  },
+  "require firebase-admin/firestore": {
+    "prefix": "radfs",
+    "body": "const firestore = require('firebase-admin/firestore')$0"
+  },
+  "require { getFunctions }": {
+    "prefix": "rgetfns",
+    "body": "const { getFunctions } = require('firebase-admin/functions')$0"
+  },
+  "require firebase-functions-test": {
+    "prefix": "rfntest",
+    "body": "const { wrap, mockConfig } = require('firebase-functions-test')($0)"
+  },
+  "httpsOnCall": {
+    "prefix": "hcall",
+    "body": [
+      "exports.funcName = functions.https",
+      "  .onCall(async (data, context) => {",
+      "    const uid = context?.auth?.uid",
+      "    const email = context?.auth?.token?.email",
+      "    $0",
+      "    return { code: 0, message: 'success' }",
+      "  })"
+    ],
+    "description": "create an HTTPs callable function"
+  },
+  "httpsOnCallV2": {
+    "prefix": "hcallv2",
+    "body": [
+      "exports.funcName = functions.https",
+      "  .onCall(async (req) => {",
+      "    const uid = req?.auth?.uid",     
+      "    const email = req?.auth?.token?.email",
+      "    $0",
+      "    return { code: 0, message: 'success' }",
+      "  })"
+    ],
+    "description": "create an HTTPs callable function"
+  },
+  "httpsOnRequest": {
+    "prefix": "hreq",
+    "body": [
+      "exports.funcName = functions.https",
+      "  .onRequest(async (req, res) => {",
+      "    $0",
+      "    return res.status(200).send({ code: 0, message: 'success' })",
+      "  })"
+    ],
+    "description": "create a functions that handles HTTP events"
+  },
+  "httpsOnRequestV2": {
+    "prefix": "hreqv2",
+    "body": [
+      "exports.funcName = functions.https",
+      "  .onRequest(",
+      "    { cors: [], timeoutSeconds: 1200 },",
+      "    async (req, res) => {",
+      "      $0",
+      "      return res.status(200).send({ code: 0, message: 'success' })",
+      "    }",
+      "  )"
+    ],
+    "description": "create a functions that handles HTTP events"
+  },
+  "taskQueueFunctions":{
+    "prefix": "tqfns",
+    "body": [
+      "exports.funcName = functions",
+      "  .runWith({})",
+      "  .tasks.taskQueue({",
+      "    retryConfig: {",
+      "      maxAttempts: 5,",
+      "      minBackoffSeconds: 60,",
+      "    },",
+      "    rateLimits: {",
+      "      maxConcurrentDispatches: 10,",
+      "    },",
+      "  })",
+      "  .onDispatch(async (data) => {",
+      "    $0",
+      "  })"
+    ],
+    "description": "create a task queue functions"
+  },
+  "taskQueueFunctionsV2":{
+    "prefix": "tqfnsv2",
+    "body": [
+      "exports.funcName = functions",
+      "  .tasks.onTaskDispatched(",
+      "    {",
+      "      retryConfig: {",
+      "        maxAttempts: 5,",
+      "        minBackoffSeconds: 60,",
+      "      },",
+      "      rateLimits: {",
+      "        maxConcurrentDispatches: 10,",
+      "      },",
+      "    },",
+      "    async (req) => {",
+      "      $0",
+      "    }",
+      "  )"
+    ],
+    "description": "create a task queue functions"
+  },
+  "taskQueueReference": {
+    "prefix": "tqref",
+    "body": "const queue = getFunctions().taskQueue('taskQueueFunctionName')",
+    "description": "create a reference to a TaskQueue for a given function name"
+  },
+  "scheduledFunctions":{
+    "prefix": "schfns",
+    "body": [
+      "exports.funcName = functions.pubsub",
+      "  .schedule('every 5 minutes')",
+      "  .timeZone('America/New_York')",
+      "  .onRun(async (context) => {",
+      "    $0",
+      "  })"
+    ],
+    "description": "create a scheduled functions"
+  },
+  "scheduledFunctionsV2":{
+    "prefix": "schfnsv2",
+    "body": [
+      "exports.funcName = functions.scheduler",
+      "  .onSchedule('every day 00:00', async (event) => {",
+      "    $0",
+      "  })"
+    ],
+    "description": "create a scheduled functions"
+  },
+  "firestoreOnDocumentCreate":{
+    "prefix": "fsdc",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .document('users/{userId}')",
+      "  .onCreate(async (snapshot, context) => {",
+      "    const { params, eventId, timestamp } = context",
+      "    const doc = snapshot.data()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore create event"
+  },
+  "firestoreOnDocumentCreateV2":{
+    "prefix": "fsdcv2",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .onDocumentCreated('users/{userId}', (event) => {",
+      "    const { data: snapshot, params, id: eventId, time: timestamp } = event",
+      "    const data = snapshot.data()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore create event"
+  },
+  "firestoreOnDocumentUpdate":{
+    "prefix": "fsdu",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .document('users/{userId}')",
+      "  .onUpdate(async (change, context) => {",
+      "    const { params, eventId, timestamp } = context",
+      "    const before = change.before.data()",
+      "    const after = change.after.data()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore update event"
+  },
+  "firestoreOnDocumentUpdateV2":{
+    "prefix": "fsduv2",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .onDocumentUpdated('users/{userId}', async (event) => {",
+      "    const { data, params, id: eventId, time: timestamp } = event",
+      "    const before = data.before.data()",
+      "    const after = data.after.data()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore update event"
+  },
+  "firestoreOnDocumentDelete":{
+    "prefix": "fsdd",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .document('users/{userId}')",
+      "  .onDelete(async (snapshot, context) => {",
+      "    const { params, eventId, timestamp } = context",
+      "    const doc = snapshot.data()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore delete event"
+  },
+  "firestoreOnDocumentDeleteV2":{
+    "prefix": "fsddv2",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .onDocumentDeleted('users/{userId}', async (event) => {",
+      "    const { data: snapshot, params, id: eventId, time: timestamp } = event",
+      "    const data = snapshot.data()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore delete event"
+  },
+  "firestoreOnDocumentWrite":{
+    "prefix": "fsdw",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .document('users/{userId}')",
+      "  .onWrite(async (change, context) => {",
+      "    const { params, eventId, eventType, timestamp } = context",
+      "    const before = change.before.exists ? change.before.data() : null",
+      "    const after = change.after.exists ? change.after.data() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore change event"
+  },
+  "firestoreOnDocumentWriteV2":{
+    "prefix": "fsdwv2",
+    "body": [
+      "exports.funcName = functions.firestore",
+      "  .onDocumentWritten('users/{userId}', async (event) => {",
+      "    const { data, params, id: eventId, time: timestamp } = event",
+      "    const before = data.before.exists ? data.before.data() : null",
+      "    const after = data.after.exists ? data.after.data() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for cloud Firestore change event"
+  },
+  "RealtimeDatabaseOnValueCreate":{
+    "prefix": "rtdbc",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .ref('/foo/{bar}')",
+      "  .onCreate(async (snapshot, context) => {",
+      "    const { params, eventId, timestamp } = context",
+      "    const value = snapshot.val()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database create event"
+  },
+  "RealtimeDatabaseOnValueCreateV2":{
+    "prefix": "rtdbcv2",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .onValueCreated('/foo/{bar}', async (event) => {",
+      "    const { params, id: eventId, time: timestamp } = event",
+      "    const value = event.data.val()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database create event"
+  },
+  "RealtimeDatabaseOnValueUpdate":{
+    "prefix": "rtdbu",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .ref('/foo/{bar}')",
+      "  .onUpdate(async (change, context) => {",
+      "    const { params, eventId, timestamp } = context",
+      "    const before = change.before.val()",
+      "    const after = change.after.val()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database update event"
+  },
+  "RealtimeDatabaseOnValueUpdateV2":{
+    "prefix": "rtdbuv2",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .onValueUpdated('/foo/{bar}', async (event) => {",
+      "    const { data, params, id: eventId, time: timestamp } = event",
+      "    const before = data.before.val()",
+      "    const after = data.after.val()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database update event"
+  },
+  "RealtimeDatabaseOnValueDelete":{
+    "prefix": "rtdbd",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .ref('/foo/{bar}')",
+      "  .onDelete(async (snapshot, context) => {",
+      "    const { params, eventId, timestamp } = context",
+      "    const value = snapshot.val()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database delete event"
+  },
+  "RealtimeDatabaseOnValueDeleteV2":{
+    "prefix": "rtdbdv2",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .onValueDeleted('/foo/{bar}', async (event) => {",
+      "    const { params, id: eventId, time: timestamp } = event",
+      "    const value = event.data.val()",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database delete event"
+  },
+  "RealtimeDatabaseOnValueWrite":{
+    "prefix": "rtdbw",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .ref('/foo/{bar}')",
+      "  .onWrite(async (change, context) => {",
+      "    const { params, eventId, eventType, timestamp } = context",
+      "    const before = change.before.exists() ? change.before.val() : null",
+      "    const after = change.after.exists() ? change.after.val() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database change event"
+  },
+  "RealtimeDatabaseOnValueWriteV2":{
+    "prefix": "rtdbwv2",
+    "body": [
+      "exports.funcName = functions.database",
+      "  .onValueWritten('/foo/{bar}', async (event) => {",
+      "    const { data, params, id: eventId, time: timestamp } = event",
+      "    const before = data.before.exists() ? data.before.val() : null",
+      "    const after = data.after.exists() ? data.after.val() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Realtime Database change event"
+  },
+  "remoteConfigFunctions":{
+    "prefix": "rcfns",
+    "body": [
+      "exports.funcName = functions.remoteConfig",
+      "  .onUpdate(async (versionMetadata) => {",
+      "    const currentVersion = versionMetadata.versionNumber",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Remote Config events"
+  },
+  "remoteConfigFunctionsV2":{
+    "prefix": "rcfnsv2",
+    "body": [
+      "exports.funcName = functions.remoteConfig",
+      "  .onConfigUpdated(async (event) => {",
+      "    const currentVersion = event.data.versionNumber",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Remote Config events"
+  },
+  "PubSubFunctions":{
+    "prefix": "pbfns",
+    "body": [
+      "exports.funcName = functions.pubsub",
+      "  .topic('topicName')",
+      "  .onPublish(async (message, context) => {",
+      "    const { eventId, timestamp } = context",
+      "    const messageBoy = message.data ? Buffer.from(message.data, 'base64').toString() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Pub/Sub message is sent to specific topic"
+  },
+  "PubSubFunctionsV2":{
+    "prefix": "pbfnsv2",
+    "body": [
+      "exports.funcName = functions.pubsub",
+      "  .onMessagePublished('topicName', async (event) => {",
+      "    const { data: { message }, id: eventId, time: timestamp } = event",
+      "    const messageBoy = message.data ? Buffer.from(message.data, 'base64').toString() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for Pub/Sub message is sent to specific topic"
+  }
+}
+

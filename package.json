@@ -1,0 +1,33 @@
+{
+  "name": "firebase-js-snippets",
+  "displayName": "Firebase Javascript snippets",
+  "description": "Dead simple Firebase snippets you will actually use",
+  "version": "0.0.1",
+  "icon": "images/logo.png",
+  "publisher": "wangwenkun",
+  "keywords": [
+    "snippets",
+    "firebase",
+    "firestore",
+    "google-cloud"
+  ],
+  "engines": {
+    "vscode": "^1.92.2"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "snippets/snippets.json"
+      }
+    ]
+  }
+}
