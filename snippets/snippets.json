@@ -1,28 +1,36 @@
 {
   "require firebase-functions": {
-    "prefix": "rfns",
+    "prefix": "refn",
     "body": "const functions = require('firebase-functions')$0"
   },
   "require firebase-functions/v2": {
-    "prefix": "rfnsv2",
+    "prefix": "refnv2",
     "body": "const functions = require('firebase-functions/v2')$0"
   },
   "require firebase-admin/firestore": {
-    "prefix": "radfs",
+    "prefix": "refs",
     "body": "const firestore = require('firebase-admin/firestore')$0"
   },
   "require { getFunctions }": {
-    "prefix": "rgetfns",
+    "prefix": "regfn",
     "body": "const { getFunctions } = require('firebase-admin/functions')$0"
   },
   "require firebase-functions-test": {
-    "prefix": "rfntest",
+    "prefix": "refntest",
     "body": "const { wrap, mockConfig } = require('firebase-functions-test')($0)"
   },
+  "require { getStorage }": {
+    "prefix": "restg",
+    "body": "const { getStorage } = require('firebase-admin/storage')"
+  },
+  "require @google-cloud/pubsub": {
+    "prefix": "reps",
+    "body": "const { PubSub } = require('@google-cloud/pubsub')$0"
+  },
   "httpsOnCall": {
-    "prefix": "hcall",
+    "prefix": "hoc",
     "body": [
-      "exports.funcName = functions.https",
+      "exports.${1:funcName} = functions.https",
       "  .onCall(async (data, context) => {",
       "    const uid = context?.auth?.uid",
       "    const email = context?.auth?.token?.email",
@@ -33,9 +41,9 @@
     "description": "create an HTTPs callable function"
   },
   "httpsOnCallV2": {
-    "prefix": "hcallv2",
+    "prefix": "hocv2",
     "body": [
-      "exports.funcName = functions.https",
+      "exports.${1:funcName} = functions.https",
       "  .onCall(async (req) => {",
       "    const uid = req?.auth?.uid",     
       "    const email = req?.auth?.token?.email",
@@ -46,9 +54,9 @@
     "description": "create an HTTPs callable function"
   },
   "httpsOnRequest": {
-    "prefix": "hreq",
+    "prefix": "hoq",
     "body": [
-      "exports.funcName = functions.https",
+      "exports.${1:funcName} = functions.https",
       "  .onRequest(async (req, res) => {",
       "    $0",
       "    return res.status(200).send({ code: 0, message: 'success' })",
@@ -57,9 +65,9 @@
     "description": "create a functions that handles HTTP events"
   },
   "httpsOnRequestV2": {
-    "prefix": "hreqv2",
+    "prefix": "hoqv2",
     "body": [
-      "exports.funcName = functions.https",
+      "exports.${1:funcName} = functions.https",
       "  .onRequest(",
       "    { cors: [], timeoutSeconds: 1200 },",
       "    async (req, res) => {",
@@ -71,9 +79,9 @@
     "description": "create a functions that handles HTTP events"
   },
   "taskQueueFunctions":{
-    "prefix": "tqfns",
+    "prefix": "tqdp",
     "body": [
-      "exports.funcName = functions",
+      "exports.${1:funcName} = functions",
       "  .runWith({})",
       "  .tasks.taskQueue({",
       "    retryConfig: {",
@@ -91,9 +99,9 @@
     "description": "create a task queue functions"
   },
   "taskQueueFunctionsV2":{
-    "prefix": "tqfnsv2",
+    "prefix": "tqdpv2",
     "body": [
-      "exports.funcName = functions",
+      "exports.${1:funcName} = functions",
       "  .tasks.onTaskDispatched(",
       "    {",
       "      retryConfig: {",
@@ -117,9 +125,9 @@
     "description": "create a reference to a TaskQueue for a given function name"
   },
   "scheduledFunctions":{
-    "prefix": "schfns",
+    "prefix": "schrun",
     "body": [
-      "exports.funcName = functions.pubsub",
+      "exports.${1:funcName} = functions.pubsub",
       "  .schedule('every 5 minutes')",
       "  .timeZone('America/New_York')",
       "  .onRun(async (context) => {",
@@ -129,9 +137,9 @@
     "description": "create a scheduled functions"
   },
   "scheduledFunctionsV2":{
-    "prefix": "schfnsv2",
+    "prefix": "schrunv2",
     "body": [
-      "exports.funcName = functions.scheduler",
+      "exports.${1:funcName} = functions.scheduler",
       "  .onSchedule('every day 00:00', async (event) => {",
       "    $0",
       "  })"
@@ -139,9 +147,9 @@
     "description": "create a scheduled functions"
   },
   "firestoreOnDocumentCreate":{
-    "prefix": "fsdc",
+    "prefix": "fsodc",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .document('users/{userId}')",
       "  .onCreate(async (snapshot, context) => {",
       "    const { params, eventId, timestamp } = context",
@@ -152,9 +160,9 @@
     "description": "define a handler for cloud Firestore create event"
   },
   "firestoreOnDocumentCreateV2":{
-    "prefix": "fsdcv2",
+    "prefix": "fsodcv2",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .onDocumentCreated('users/{userId}', (event) => {",
       "    const { data: snapshot, params, id: eventId, time: timestamp } = event",
       "    const data = snapshot.data()",
@@ -164,9 +172,9 @@
     "description": "define a handler for cloud Firestore create event"
   },
   "firestoreOnDocumentUpdate":{
-    "prefix": "fsdu",
+    "prefix": "fsodu",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .document('users/{userId}')",
       "  .onUpdate(async (change, context) => {",
       "    const { params, eventId, timestamp } = context",
@@ -178,9 +186,9 @@
     "description": "define a handler for cloud Firestore update event"
   },
   "firestoreOnDocumentUpdateV2":{
-    "prefix": "fsduv2",
+    "prefix": "fsoduv2",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .onDocumentUpdated('users/{userId}', async (event) => {",
       "    const { data, params, id: eventId, time: timestamp } = event",
       "    const before = data.before.data()",
@@ -191,9 +199,9 @@
     "description": "define a handler for cloud Firestore update event"
   },
   "firestoreOnDocumentDelete":{
-    "prefix": "fsdd",
+    "prefix": "fsodd",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .document('users/{userId}')",
       "  .onDelete(async (snapshot, context) => {",
       "    const { params, eventId, timestamp } = context",
@@ -204,9 +212,9 @@
     "description": "define a handler for cloud Firestore delete event"
   },
   "firestoreOnDocumentDeleteV2":{
-    "prefix": "fsddv2",
+    "prefix": "fsoddv2",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .onDocumentDeleted('users/{userId}', async (event) => {",
       "    const { data: snapshot, params, id: eventId, time: timestamp } = event",
       "    const data = snapshot.data()",
@@ -216,9 +224,9 @@
     "description": "define a handler for cloud Firestore delete event"
   },
   "firestoreOnDocumentWrite":{
-    "prefix": "fsdw",
+    "prefix": "fsodw",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .document('users/{userId}')",
       "  .onWrite(async (change, context) => {",
       "    const { params, eventId, eventType, timestamp } = context",
@@ -230,9 +238,9 @@
     "description": "define a handler for cloud Firestore change event"
   },
   "firestoreOnDocumentWriteV2":{
-    "prefix": "fsdwv2",
+    "prefix": "fsodwv2",
     "body": [
-      "exports.funcName = functions.firestore",
+      "exports.${1:funcName} = functions.firestore",
       "  .onDocumentWritten('users/{userId}', async (event) => {",
       "    const { data, params, id: eventId, time: timestamp } = event",
       "    const before = data.before.exists ? data.before.data() : null",
@@ -242,10 +250,10 @@
     ],
     "description": "define a handler for cloud Firestore change event"
   },
-  "RealtimeDatabaseOnValueCreate":{
-    "prefix": "rtdbc",
+  "realtimeDatabaseOnDataCreate":{
+    "prefix": "rtdbodc",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .ref('/foo/{bar}')",
       "  .onCreate(async (snapshot, context) => {",
       "    const { params, eventId, timestamp } = context",
@@ -255,10 +263,10 @@
     ],
     "description": "define a handler for Realtime Database create event"
   },
-  "RealtimeDatabaseOnValueCreateV2":{
-    "prefix": "rtdbcv2",
+  "realtimeDatabaseOnDataCreateV2":{
+    "prefix": "rtdbodcv2",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .onValueCreated('/foo/{bar}', async (event) => {",
       "    const { params, id: eventId, time: timestamp } = event",
       "    const value = event.data.val()",
@@ -267,10 +275,10 @@
     ],
     "description": "define a handler for Realtime Database create event"
   },
-  "RealtimeDatabaseOnValueUpdate":{
-    "prefix": "rtdbu",
+  "realtimeDatabaseOnDataUpdate":{
+    "prefix": "rtdbodu",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .ref('/foo/{bar}')",
       "  .onUpdate(async (change, context) => {",
       "    const { params, eventId, timestamp } = context",
@@ -281,10 +289,10 @@
     ],
     "description": "define a handler for Realtime Database update event"
   },
-  "RealtimeDatabaseOnValueUpdateV2":{
-    "prefix": "rtdbuv2",
+  "realtimeDatabaseOnDataUpdateV2":{
+    "prefix": "rtdboduv2",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .onValueUpdated('/foo/{bar}', async (event) => {",
       "    const { data, params, id: eventId, time: timestamp } = event",
       "    const before = data.before.val()",
@@ -294,10 +302,10 @@
     ],
     "description": "define a handler for Realtime Database update event"
   },
-  "RealtimeDatabaseOnValueDelete":{
-    "prefix": "rtdbd",
+  "realtimeDatabaseOnDataDelete":{
+    "prefix": "rtdbodd",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .ref('/foo/{bar}')",
       "  .onDelete(async (snapshot, context) => {",
       "    const { params, eventId, timestamp } = context",
@@ -307,10 +315,10 @@
     ],
     "description": "define a handler for Realtime Database delete event"
   },
-  "RealtimeDatabaseOnValueDeleteV2":{
-    "prefix": "rtdbdv2",
+  "realtimeDatabaseOnDataDeleteV2":{
+    "prefix": "rtdboddv2",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .onValueDeleted('/foo/{bar}', async (event) => {",
       "    const { params, id: eventId, time: timestamp } = event",
       "    const value = event.data.val()",
@@ -319,10 +327,10 @@
     ],
     "description": "define a handler for Realtime Database delete event"
   },
-  "RealtimeDatabaseOnValueWrite":{
-    "prefix": "rtdbw",
+  "realtimeDatabaseOnDataWrite":{
+    "prefix": "rtdbodw",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .ref('/foo/{bar}')",
       "  .onWrite(async (change, context) => {",
       "    const { params, eventId, eventType, timestamp } = context",
@@ -333,10 +341,10 @@
     ],
     "description": "define a handler for Realtime Database change event"
   },
-  "RealtimeDatabaseOnValueWriteV2":{
-    "prefix": "rtdbwv2",
+  "realtimeDatabaseOnDataWriteV2":{
+    "prefix": "rtdbodwv2",
     "body": [
-      "exports.funcName = functions.database",
+      "exports.${1:funcName} = functions.database",
       "  .onValueWritten('/foo/{bar}', async (event) => {",
       "    const { data, params, id: eventId, time: timestamp } = event",
       "    const before = data.before.exists() ? data.before.val() : null",
@@ -346,21 +354,21 @@
     ],
     "description": "define a handler for Realtime Database change event"
   },
-  "remoteConfigFunctions":{
-    "prefix": "rcfns",
+  "remoteConfigUpdate":{
+    "prefix": "rcou",
     "body": [
-      "exports.funcName = functions.remoteConfig",
-      "  .onUpdate(async (versionMetadata) => {",
+      "exports.${1:funcName} = functions.remoteConfig",
+      "  .onUpdate(async (versionMetadata, context) => {",
       "    const currentVersion = versionMetadata.versionNumber",
       "    $0",
       "  })"
     ],
     "description": "define a handler for Remote Config events"
   },
-  "remoteConfigFunctionsV2":{
-    "prefix": "rcfnsv2",
+  "remoteConfigUpdateV2":{
+    "prefix": "rcouv2",
     "body": [
-      "exports.funcName = functions.remoteConfig",
+      "exports.${1:funcName} = functions.remoteConfig",
       "  .onConfigUpdated(async (event) => {",
       "    const currentVersion = event.data.versionNumber",
       "    $0",
@@ -368,10 +376,10 @@
     ],
     "description": "define a handler for Remote Config events"
   },
-  "PubSubFunctions":{
-    "prefix": "pbfns",
+  "pubSubFunctions":{
+    "prefix": "msgop",
     "body": [
-      "exports.funcName = functions.pubsub",
+      "exports.${1:funcName} = functions.pubsub",
       "  .topic('topicName')",
       "  .onPublish(async (message, context) => {",
       "    const { eventId, timestamp } = context",
@@ -381,10 +389,10 @@
     ],
     "description": "define a handler for Pub/Sub message is sent to specific topic"
   },
-  "PubSubFunctionsV2":{
-    "prefix": "pbfnsv2",
+  "pubSubFunctionsV2":{
+    "prefix": "msgopv2",
     "body": [
-      "exports.funcName = functions.pubsub",
+      "exports.${1:funcName} = functions.pubsub",
       "  .onMessagePublished('topicName', async (event) => {",
       "    const { data: { message }, id: eventId, time: timestamp } = event",
       "    const messageBoy = message.data ? Buffer.from(message.data, 'base64').toString() : null",
@@ -392,6 +400,151 @@
       "  })"
     ],
     "description": "define a handler for Pub/Sub message is sent to specific topic"
+  },
+  "uploadObjectToBucket":{
+    "prefix": "soupl",
+    "body": [
+      "getStorage().bucket().upload('filePath', { destination: 'destFileName' })",
+      "  .then((res) => {",
+      "    $0",
+      "  })",
+      "  .catch((err) => {",
+      "    $1",
+      "  })"
+    ],
+    "description": "upload an object to a bucket"
+  },
+  "downloadObjectFromBucket":{
+    "prefix": "sodown",
+    "body": [
+      "getStorage().bucket().file().download({ destination: 'destFileName' })",
+      "  .then((res) => {",
+      "    $0",
+      "  })",
+      "  .catch((err) => {",
+      "    $1",
+      "  })"
+    ],
+    "description": "download an object from a bucket"
+  },
+  "storageObjectOnArchive":{
+    "prefix": "sooa",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .bucket('bucketName')",
+      "  .object()",
+      "  .onArchive(async(object, context) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = object",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object archive event"
+  },
+  "storageObjectOnArchiveV2":{
+    "prefix": "sooav2",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .onObjectArchived({ bucket: 'bucketName', }, async(event) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = event.data",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object archive event"
+  },
+  "bucketObjectOnDelete":{
+    "prefix": "sood",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .bucket('bucketName')",
+      "  .object()",
+      "  .onDelete(async(object, context) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = object",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object delete event"
+  },
+  "storageObjectOnDeleteV2":{
+    "prefix": "soodv2",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .onObjectDeleted({ bucket: 'bucketName', }, async(event) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = event.data",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object delete event"
+  },
+  "storageObjectFinalized":{
+    "prefix": "soof",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .bucket('bucketName')",
+      "  .object()",
+      "  .onFinalize(async(object, context) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = object",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object finalize event"
+  },
+  "storageObjectFinalizedV2":{
+    "prefix": "soofv2",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .onObjectFinalized({ bucket: 'bucketName', }, async(event) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = event.data",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object finalize event"
+  },
+  "storageObjectMetadataUpdated":{
+    "prefix": "somu",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .bucket('bucketName')",
+      "  .object()",
+      "  .onMetadataUpdate(async(object, context) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = object",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for bucket object metadata update event"
+  },
+  "storageObjectMetadataUpdatedV2":{
+    "prefix": "somuv2",
+    "body": [
+      "exports.${1:funcName} = functions.storage",
+      "  .onObjectMetadataUpdated({ bucket: 'bucketName', }, async(event) => {",
+      "    const { bucket: fileBucket, name: filePath, contentType } = event.data",
+      "    $0",
+      "  })"
+    ],
+    "description": "define a handler for storage object metadata update event"
+  },
+  "publishMessage":{
+    "prefix": "pubmsg",
+    "body": [
+      "new PubSub({ projectId: '${1:projectId}' })",
+      "  .topic('${2topicName}')",
+      "  .publishMessage({",
+      "    $0",
+      "  })"
+    ],
+    "description": "Publish the provided message."
+  },
+  "subscribeMessage":{
+    "prefix": "submsg",
+    "body": [
+      "new PubSub({ projectId: '${1:projectId}' })",
+      "  .topic('${2:topicName}')",
+      "  .subscription('${3:subscriptionName}')",
+      "  .on('message', async (message) => {",
+      "    const messageBoy = message.data ? Buffer.from(message.data, 'base64').toString() : null",
+      "    $0",
+      "  })"
+    ],
+    "description": "Register a listener for `message` events."
   }
 }
-

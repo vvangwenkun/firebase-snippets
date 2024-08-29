@@ -8,20 +8,53 @@ Here is direct link to marketplace [Firebase snippets](https://marketplace.visua
 
 - JavaScript (.js)
 
-## Basic Methods
+## Firebase Admin
+| Prefix  | Method                                                         |
+| ------: | -------------------------------------------------------------- |
+| `refs→` | `const firestore = require('firebase-admin/firestore')`        |
+| `regfn→` | `const { getFunctions } = require('firebase-admin/functions')` |
+| `restg`  | `const { getStorage } = require('firebase-admin/storage')`     |
+
+## Firebase Functions
 
 | Prefix      | Method                                                              |
-| ----------: | -----------------------------------------------------------------   |
-| `rfns→`     | `const functions = require('firebase-functions')`                   |
-| `rfnsv2→`   | `const functions = require('firebase-functions/v2')`                |
-| `radfs→`    | `const firestore = require('firebase-admin/firestore')`             |
-| `rgetfns→`  | `const { getFunctions } = require('firebase-admin/functions')`      |
-| `rfntest→`  | `const { wrap, mockConfig } = require('firebase-functions-test')()` |
+| ----------: | ------------------------------------------------------------------- |
+| `refn→`     | `const functions = require('firebase-functions')`                   |
+| `refnv2→`   | `const functions = require('firebase-functions/v2')`                |
+| `refntest→` | `const { wrap, mockConfig } = require('firebase-functions-test')()` |
 | `tqref→`    | `const queue = getFunctions().taskQueue('taskQueueFunctionName')`   |
+
+## Google Cloud
+
+| Prefix   | Method                                               |
+| -------: | ---------------------------------------------------- |
+| `reps→`  | `const { PubSub } = require('@google-cloud/pubsub')` |
+
+### `pubmsg`
+
+```javascript
+new PubSub({ projectId: 'projectId' })
+  .topic('topicName')
+  .publishMessage({
+
+  })
+```
+
+### `submsg`
+
+```javascript
+new PubSub({ projectId: 'projectId' })
+  .topic('topicName')
+  .subscription('subscriptionName')
+  .on('message', async (message) => {
+    const messageBoy = message.data ? Buffer.from(message.data, 'base64').toString() : null
+    
+  })
+```
 
 ## Cloud Functions
 
-### `hcall`
+### `hoc`
 
 ```javascript
 exports.funcName = functions.https
@@ -33,7 +66,7 @@ exports.funcName = functions.https
   })
 ```
 
-### `hcallv2`
+### `hocv2`
 
 ```javascript
 exports.funcName = functions.https
@@ -45,7 +78,7 @@ exports.funcName = functions.https
   })
 ```
 
-### `hreq`
+### `hoq`
 
 ```javascript
 exports.funcName = functions.https
@@ -55,7 +88,7 @@ exports.funcName = functions.https
   })
 ```
 
-### `hreqv2`
+### `hoqv2`
 
 ```javascript
 exports.funcName = functions.https
@@ -68,7 +101,7 @@ exports.funcName = functions.https
   )
 ```
 
-### `tqfns`
+### `tqdp`
 
 ```javascript
 exports.funcName = functions
@@ -87,7 +120,7 @@ exports.funcName = functions
   })
 ```
 
-### `tqfnsv2`
+### `tqdpv2`
 
 ```javascript
 exports.funcName = functions
@@ -107,7 +140,7 @@ exports.funcName = functions
   )
 ```
 
-### `schfns`
+### `schrun`
 
 ```javascript
 exports.funcName = functions.pubsub
@@ -118,7 +151,7 @@ exports.funcName = functions.pubsub
   })
 ```
 
-### `schfnsv2`
+### `schrunv2`
 
 ```javascript
 exports.funcName = functions.scheduler
@@ -127,7 +160,7 @@ exports.funcName = functions.scheduler
   })
 ```
 
-### `fsdc`
+### `fsodc`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -139,7 +172,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsdcv2`
+### `fsodcv2`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -150,7 +183,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsdu`
+### `fsodu`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -163,7 +196,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsduv2`
+### `fsoduv2`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -175,7 +208,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsdd`
+### `fsodd`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -187,7 +220,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsddv2`
+### `fsoddv2`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -198,7 +231,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsdw`
+### `fsodw`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -211,7 +244,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `fsdwv2`
+### `fsodwv2`
 
 ```javascript
 exports.funcName = functions.firestore
@@ -223,7 +256,7 @@ exports.funcName = functions.firestore
   })
 ```
 
-### `rtdbc`
+### `rtdbodc`
 
 ```javascript
 exports.funcName = functions.database
@@ -235,7 +268,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbcv2`
+### `rtdbodcv2`
 
 ```javascript
 exports.funcName = functions.database
@@ -246,7 +279,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbu`
+### `rtdbodu`
 
 ```javascript
 exports.funcName = functions.database
@@ -259,7 +292,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbuv2`
+### `rtdboduv2`
 
 ```javascript
 exports.funcName = functions.database
@@ -271,7 +304,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbd`
+### `rtdbodd`
 
 ```javascript
 exports.funcName = functions.database
@@ -283,7 +316,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbdv2`
+### `rtdboddv2`
 
 ```javascript
 exports.funcName = functions.database
@@ -294,7 +327,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbw`
+### `rtdbodw`
 
 ```javascript
 exports.funcName = functions.database
@@ -307,7 +340,7 @@ exports.funcName = functions.database
   })
 ```
 
-### `rtdbwv2`
+### `rtdbodwv2`
 
 ```javascript
 exports.funcName = functions.database
@@ -319,17 +352,17 @@ exports.funcName = functions.database
   })
 ```
 
-### `rcfns`
+### `rcou`
 
 ```javascript
 exports.funcName = functions.remoteConfig
-  .onUpdate(async (versionMetadata) => {
+  .onUpdate(async (versionMetadata, context) => {
     const currentVersion = versionMetadata.versionNumber
     
   })
 ```
 
-### `rcfnsv2`
+### `rcouv2`
 
 ```javascript
 exports.funcName = functions.remoteConfig
@@ -339,7 +372,7 @@ exports.funcName = functions.remoteConfig
   })
 ```
 
-### `pbfns`
+### `msgop`
 
 ```javascript
 exports.funcName = functions.pubsub
@@ -351,13 +384,125 @@ exports.funcName = functions.pubsub
   })
 ```
 
-### `pbfnsv2`
+### `msgopv2`
 
 ```javascript
 exports.funcName = functions.pubsub
   .onMessagePublished('topicName', async (event) => {
     const { data: { message }, id: eventId, time: timestamp } = event
     const messageBoy = message.data ? Buffer.from(message.data, 'base64').toString() : null
+    
+  })
+```
+
+### `soupl`
+
+```javascript
+getStorage().bucket().upload('filePath', { destination: 'destFileName' })
+  .then((res) => {
+    
+  })
+  .catch((err) => {
+    
+  })
+```
+
+### `sodown`
+
+```javascript
+getStorage().bucket().file().download({ destination: 'destFileName' })
+  .then((res) => {
+    
+  })
+  .catch((err) => {
+    
+  })
+```
+
+### `sooa`
+
+```javascript
+exports.funcName = functions.storage
+  .bucket('bucketName')
+  .object()
+  .onArchive(async(object, context) => {
+    const { bucket: fileBucket, name: filePath, contentType } = object
+    
+  })
+```
+
+### `sooav2`
+
+```javascript
+exports.funcName = functions.storage
+  .onObjectArchived({ bucket: 'bucketName', }, async(event) => {
+    const { bucket: fileBucket, name: filePath, contentType } = event.data
+    
+  })
+```
+
+### `sood`
+
+```javascript
+exports.funcName = functions.storage
+  .bucket('bucketName')
+  .object()
+  .onDelete(async(object, context) => {
+    const { bucket: fileBucket, name: filePath, contentType } = object
+    
+  })
+```
+
+### `soodv2`
+
+```javascript
+exports.funcName = functions.storage
+  .onObjectDeleted({ bucket: 'bucketName', }, async(event) => {
+    const { bucket: fileBucket, name: filePath, contentType } = event.data
+    
+  })
+```
+
+### `soof`
+
+```javascript
+exports.funcName = functions.storage
+  .bucket('bucketName')
+  .object()
+  .onFinalize(async(object, context) => {
+    const { bucket: fileBucket, name: filePath, contentType } = object
+    
+  })
+```
+
+### `soof2`
+
+```javascript
+exports.funcName = functions.storage
+  .onObjectFinalized({ bucket: 'bucketName', }, async(event) => {
+    const { bucket: fileBucket, name: filePath, contentType } = event.data
+    
+  })
+```
+
+### `somu`
+
+```javascript
+exports.funcName = functions.storage
+  .bucket('bucketName')
+  .object()
+  .onMetadataUpdate(async(object, context) => {
+    const { bucket: fileBucket, name: filePath, contentType } = object
+    
+  })
+```
+
+### `somuv2`
+
+```javascript
+exports.funcName = functions.storage
+  .onObjectMetadataUpdated({ bucket: 'bucketName', }, async(event) => {
+    const { bucket: fileBucket, name: filePath, contentType } = event.data
     
   })
 ```

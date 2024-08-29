@@ -6,11 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+[0.1.0] - 2024-08-30
+
+- Add Storage snippets
+- Add Pubsub snippets
+- Update snippets prefix
+- Improve README readability
+
 [0.0.2] - 2024-08-29
 
-- update logo, add repository url
+- Update logo, add repository url
 
 [0.0.1] - 2024-08-25
 
-- require snippets
-- functions snippets
+- Require snippets
+- Cloud Functions snippets

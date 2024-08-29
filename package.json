@@ -2,7 +2,7 @@
   "name": "firebase-js-snippets",
   "displayName": "Firebase Javascript snippets",
   "description": "Dead simple Firebase snippets you will actually use",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "icon": "images/logo.png",
   "publisher": "wangwenkun",
   "keywords": [
